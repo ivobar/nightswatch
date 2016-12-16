@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (!Request.IsAuthenticated)
+{
+    <div class="vertical-center">
+        <div class="container text-center">
+            <h1>Welcome to the Night's Watch!</h1>
+            <h4>State your business or leave.</h4>
+            <p>
+                @Html.ActionLink("Log in", "Login", "Account", new { id = "loginLink" }, new { @class = "btn btn-default btn-lg" })
+                @Html.ActionLink("Register", "Register", "Account", new { id = "registerLink" }, new { @class = "btn btn-default btn-lg" })
+            </p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container body-content">
+        <h3>Index Home Page</h3>
+    </div>
+    
+}
+
+
