@@ -10,29 +10,24 @@
 <body>
     @if (Request.IsAuthenticated)
     {
-            <div class="navbar navbar-default navbar-static-top">
-                <div class="container body-content">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        @Html.ActionLink("Night's Watch Blog", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        @Html.Partial("_LoginPartial")
-                    </div>
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container body-content">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Night's Watch Blog", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    @Html.Partial("_LoginPartial")
                 </div>
             </div>
+        </div>
     }
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Ivaka Corp</p>
-        </footer>
-    </div>
+    @RenderBody()
+
 
 
 

@@ -1,0 +1,41 @@
+﻿@model List<Blog.Models.Category>
+
+@{
+    ViewBag.Title = "List";
+}
+
+    <div class="container">
+        <div class="well col-md-6 col-md-offset-3">
+            <div>
+                <h2 class="text-center">All categories</h2>
+                <table class="table table-striped table-hover ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Category name</th>
+                            <th>
+
+                                @Html.ActionLink("New category", "Create", "Category", null, new { @class = "btn btn-success btn-xs" })
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model)
+            {
+                            <tr>
+                                <td>@category.Id</td>
+                                <td>@category.Name</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", "Category", new { @id = category.Id }, new { @class = "btn btn-success btn-xs" })
+                                    @Html.ActionLink("Delete", "Delete", "Category", new { @id = category.Id }, new { @class = "btn btn-success btn-xs" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+

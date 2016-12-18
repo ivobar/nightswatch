@@ -10,7 +10,14 @@ namespace Blog.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("List", "Article");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
