@@ -160,3 +160,4 @@ C:\Users\Ivo\Documents\Visual Studio 2015\Projects\nightswatch\Blog\Blog\bin\Mic
 C:\Users\Ivo\Documents\Visual Studio 2015\Projects\nightswatch\Blog\Blog\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Ivo\Documents\Visual Studio 2015\Projects\nightswatch\Blog\Blog\obj\Debug\Blog.dll
 C:\Users\Ivo\Documents\Visual Studio 2015\Projects\nightswatch\Blog\Blog\obj\Debug\Blog.pdb
+C:\Users\Ivo\Documents\Visual Studio 2015\Projects\nightswatch\Blog\Blog\obj\Debug\Blog.csprojResolveAssemblyReference.cache

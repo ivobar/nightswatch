@@ -1,0 +1,39 @@
+﻿@model Blog.Models.CategoryViewModel
+
+@{
+    ViewBag.Title = "ListByCategory";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h5 class="text-center">You have chosen: @Model.Name</h5>
+            <div class="list-group">
+                @foreach (var category in Model.Categories)
+                {
+                    <a href="@category.Id" class="list-group-item">
+                        <span class="badge">@category.Articles.Count</span>
+                        @category.Name
+                    </a>
+                }
+            </div>
+        </div>
+        <h5 class="text-center">List of Articles from the house of @Model.Name</h5>
+        <div class="col-md-9">
+            @foreach (var article in Model.Articles)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @article.Title
+                    </div>
+                    <div class="panel-body">
+                        @article.Content
+                    </div>
+                    <div class="panel-footer">
+                        Panel footer
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
