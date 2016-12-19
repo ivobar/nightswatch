@@ -1,0 +1,55 @@
+﻿@model Blog.Models.Article
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container col-md-12">
+    <div class="well col-md-6 col-md-offset-3">
+        <article>
+            <header>
+                <h2>
+                    @Model.Title
+                    <a href="/Commentary/Create/@Model.Id" class="pull-right btn btn-default btn-sm">
+                        Comment
+                    </a>
+                </h2>
+            </header>
+            <p>
+                @Model.Content
+            </p>
+
+            <div class="author text-primary">
+                Created by @Model.Author.FullName
+            </div>
+            <footer class="pull-right">
+                @if (User.IsInRole("Admin") || Model.IsAuthor(User.Identity.Name))
+                {
+                    @Html.ActionLink("Edit", "Edit", "Article", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
+                    @Html.ActionLink("Delete", "Delete", "Article", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
+                }
+                @Html.ActionLink("Back", "Index", "Article", null, new { @class = "btn btn-default btn-xs" })
+            </footer>
+        </article>
+    </div>
+</div>
+@foreach (var comment in Model.Commentaries)
+{
+    <div class="container col-md-12">
+        <div class="well col-md-6 col-md-offset-3">
+            <article>
+                <header>
+                </header>
+                <p>
+                    @comment.Content
+                </p>
+
+                <div class="author text-primary">
+                    by @comment.AuthorName
+                </div>
+                <footer class="pull-right"></footer>
+            </article>
+        </div>
+    </div>
+}
+
+<hr />

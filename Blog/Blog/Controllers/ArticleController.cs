@@ -29,7 +29,7 @@ namespace Blog.Controllers
                     .Include(c => c.Articles)
                     .OrderBy(c => c.Name)
                     .ToList();
-               
+
                 return View(categories);
             }
         }
@@ -54,13 +54,17 @@ namespace Blog.Controllers
                                      .First();
 
                     model.Name = category.Name;
+
                     model.Articles = database
                                      .Articles
                                      .Where(a => a.CategoryId == id)
+                                     .Include(a => a.Author)
+                                     .Include(a => a.Tags)
                                      .ToList();
+
                     model.Categories = database
                         .Categories
-                        .Include(c=>c.Articles)
+                        .Include(c => c.Articles)
                         .OrderBy(c => c.Name)
                         .ToList();
 
@@ -87,6 +91,7 @@ namespace Blog.Controllers
                     .Where(a => a.Id == id)
                     .Include(a => a.Author)
                     .Include(a => a.Tags)
+                    .Include(a => a.Commentaries)
                     .First();
 
                 if (article == null)

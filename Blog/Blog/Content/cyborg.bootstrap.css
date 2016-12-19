@@ -8402,3 +8402,9 @@ a.list-group-item-danger.active {
 .jumbotron h6 {
     color: #fff;
 }
+
+.max-lines {
+   height: 1em;
+   line-height: 1em;
+   overflow:hidden;  
+}
