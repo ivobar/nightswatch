@@ -20,6 +20,7 @@ namespace Blog.Models
 
         public string AuthorId { get; set; }
 
+        [Required]
         public int CategoryId { get; set; }
 
         public ICollection<Category> Categories { get; set; }
@@ -28,6 +29,7 @@ namespace Blog.Models
 
         public ICollection<Tag> TagsCollection { get; set; }
 
+        [Required]
         public string Tags { get; set; }
 
         public int SearchType { get; set; }

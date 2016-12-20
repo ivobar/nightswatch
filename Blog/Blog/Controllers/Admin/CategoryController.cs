@@ -138,7 +138,7 @@ namespace Blog.Controllers.Admin
 
                 var categoryArticles = category.Articles;
 
-                foreach (var article in categoryArticles)
+                foreach (var article in categoryArticles.ToList())
                 {
                     database.Articles.Remove(article);
                 }
