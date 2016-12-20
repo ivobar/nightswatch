@@ -29,5 +29,11 @@ namespace Blog.Models
         public ICollection<Tag> TagsCollection { get; set; }
 
         public string Tags { get; set; }
+
+        public int SearchType { get; set; }
+
+        public string SearchText { get; set; }
+
+
     }
 }

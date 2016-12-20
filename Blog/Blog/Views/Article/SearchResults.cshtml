@@ -1,0 +1,42 @@
+﻿@model List<Blog.Models.Article>
+
+@{
+    ViewBag.Title = "SearchResults";
+}
+
+
+
+<div class="container">
+    <h5 class="text-center">Search results:</h5>
+    <div class="col-md-12">
+        @foreach (var article in Model)
+            { <div class="well">
+        <h4>@article.Title</h4>
+        <p>@article.Content.Substring(0, article.Content.Length / 2).....</p>
+        <footer>
+            <div class="row">
+                <div class="pull-left col-md-6">
+                    @foreach (var tag in article.Tags)
+                    {
+                        <span class="label label-default">@tag.Name</span>
+                    }
+                </div>
+                <div class="pull-right col-md-3">
+                    Created by: @article.Author.FullName
+                </div>
+            </div>
+        </footer>
+        <footer>
+            <div class="row">
+                <div class="pull-right col-md-3">
+                    <a href="/Article/Details/@article.Id" class="btn btn-primary btn-sm">View details</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+        }
+    </div>
+</div>
+
+
+

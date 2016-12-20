@@ -1,0 +1,34 @@
+﻿@model Blog.Models.ArticleViewModel
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<div class="container">
+    <div class="well">
+        <h3 class="text-center">Search the Night's Watch Blog</h3>
+        @using (@Html.BeginForm("Search", "Article", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <div class="form-group">
+                    @Html.LabelFor(m => m.SearchType, "Search by article properties:", new { @class = "control-label col-md-4" })
+                    <div class="dropdown col-md-4">
+                        @Html.DropDownListFor(m => m.SearchType,
+                          new SelectList(new List<Object> { new { value = 0, text = "Title" }, new { value = 1, text = "Author" }, new { value = 2, text = "Tag" }, new { value = 3, text = "Content" } }, "value", "text"),
+                            new { @class = "btn btn-primary col-md-4" })
+                    </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.SearchText,"Search:", new { @class = "control-label col-sm-4" })
+                <div class="col-sm-4">
+                    @Html.TextAreaFor(m => m.SearchText, new { @class = "form-control", @rows = "1" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    @Html.ActionLink("Cancel", "Index", "Category", new { @class = "btn btn-default" })
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

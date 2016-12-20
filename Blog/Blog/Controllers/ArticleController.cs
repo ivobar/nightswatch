@@ -333,5 +333,104 @@ namespace Blog.Controllers
                 article.Tags.Add(tag);
             }
         }
+
+        //
+        // GET: Article/Search
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        //
+        // POST: Article/Search
+        [HttpPost]
+        [Authorize]
+        public ActionResult Search(ArticleViewModel model)
+        {
+            if (model.SearchText==null)
+            {
+                return RedirectToAction("Search", "Article");
+            }
+            var searchList = model.SearchText
+                        .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(s => s.ToLower())
+                        .Distinct();
+
+            switch (model.SearchType)
+            {
+                case 0:
+                    using (var database = new BlogDbContext())
+                    {
+                        var articles = new List<Article>();
+
+                        foreach (var word in searchList)
+                        {
+                            articles = database.Articles
+                                .Where(a => a.Title.Contains(word))
+                                .Include(a => a.Author)
+                                .Include(a => a.Tags)
+                                .ToList();
+                        }
+
+                        return View("SearchResults",articles);
+                    }
+
+                case 1:
+                    using (var database = new BlogDbContext())
+                    {
+                        var articles = new List<Article>();
+
+                        foreach (var word in searchList)
+                        {
+                            articles = database.Articles
+                                .Where(a => a.Author.FullName.ToLower() == word)
+                                .Include(a => a.Author)
+                                .Include(a => a.Tags)
+                                .ToList();
+                        }
+
+                        return View("SearchResults", articles);
+                    }
+
+                case 2:
+                    using (var database = new BlogDbContext())
+                    {
+                        var articles = new List<Article>();
+
+                        foreach (var word in searchList)
+                        {
+                            articles = database.Tags
+                                    .Include(t => t.Articles.Select(a => a.Tags))
+                                    .Include(t => t.Articles.Select(a => a.Author))
+                                    .FirstOrDefault(t => t.Name == word)
+                                    .Articles
+                                    .ToList();
+                        }
+
+                        return View("SearchResults", articles);
+                    }
+
+                case 3:
+                    using (var database = new BlogDbContext())
+                    {
+                        var articles = new List<Article>();
+
+                        foreach (var word in searchList)
+                        {
+                            articles = database.Articles
+                                .Where(a => a.Content.Contains(word))
+                                .Include(a => a.Author)
+                                .Include(a=>a.Tags)
+                                .ToList();
+                        }
+
+                        return View("SearchResults", articles);
+                    }
+                default:
+                    break;
+            }
+
+            return View();
+        }
     }
 }

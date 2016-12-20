@@ -80,5 +80,24 @@ namespace Blog.Controllers
             return View(model);
         }
 
+        //
+        // GET: Commentary/VoteUp
+        public ActionResult VoteUp(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            using (var database = new BlogDbContext())
+            {
+                if (Request.IsAuthenticated)
+                {
+
+                }
+            }
+            return RedirectToAction("Details\\"+1, "Article");
+        }
+
     }
 }

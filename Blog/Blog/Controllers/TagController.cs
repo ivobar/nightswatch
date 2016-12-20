@@ -11,10 +11,11 @@ namespace Blog.Controllers
 {
     public class TagController : Controller
     {
-        // GET: Tag
+        //
+        //GET: Tag
         public ActionResult List(int? id)
         {
-            if (id==null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -34,6 +35,28 @@ namespace Blog.Controllers
             }
         }
 
+        private void SetArticleTags(Article article, ArticleViewModel model, BlogDbContext db)
+        {
+            var tagsStrings = model.Tags
+                                .Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(t => t.ToLower())
+                                .Distinct();
 
+            //Set new article tags
+            foreach (var tagString in tagsStrings)
+            {
+                //Get tag from db by its name
+                Tag tag = db.Tags.FirstOrDefault(t => t.Name.Equals(tagString));
+                //If the thag is null, create new tag
+                if (tag == null)
+                {
+                    tag = new Tag() { Name = tagString };
+                    db.Tags.Add(tag);
+                }
+                //Add tag to article tags
+                article.Tags.Add(tag);
+            }
+
+        }
     }
 }

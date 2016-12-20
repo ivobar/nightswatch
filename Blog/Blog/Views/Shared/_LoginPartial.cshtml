@@ -6,6 +6,7 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
+
             @if (User.IsInRole("Admin"))
             {
                 <li class="dropdown">
@@ -15,6 +16,9 @@
                     </ul>
                 </li>
             }
+            <li>
+                @Html.ActionLink("Search for articles", "Search", "Article")
+            </li>
             <li>
                 @Html.ActionLink("Create Article", "Create", "Article")
             </li>

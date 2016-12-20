@@ -22,6 +22,8 @@ namespace Blog.Models
 
         public virtual IDbSet<Commentary> Commentary { get; set; }
 
+        public virtual IDbSet<Vote> Votes { get; set; }
+
         public static BlogDbContext Create()
         {
             return new BlogDbContext();
