@@ -92,6 +92,7 @@ namespace Blog.Controllers
                     .Include(a => a.Author)
                     .Include(a => a.Tags)
                     .Include(a => a.Commentaries)
+                    .Include(a => a.Commentaries.Select(c => c.Author))
                     .First();
 
                 if (article == null)
@@ -293,7 +294,7 @@ namespace Blog.Controllers
                     database.Entry(article).State = EntityState.Modified;
                     database.SaveChanges();
                     //Redirect to the index page
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details\\" + model.Id);
                 }
             }
 
@@ -347,7 +348,7 @@ namespace Blog.Controllers
         [Authorize]
         public ActionResult Search(ArticleViewModel model)
         {
-            if (model.SearchText==null)
+            if (model.SearchText == null)
             {
                 return RedirectToAction("Search", "Article");
             }
@@ -372,7 +373,7 @@ namespace Blog.Controllers
                                 .ToList();
                         }
 
-                        return View("SearchResults",articles);
+                        return View("SearchResults", articles);
                     }
 
                 case 1:
@@ -420,7 +421,7 @@ namespace Blog.Controllers
                             articles = database.Articles
                                 .Where(a => a.Content.Contains(word))
                                 .Include(a => a.Author)
-                                .Include(a=>a.Tags)
+                                .Include(a => a.Tags)
                                 .ToList();
                         }
 

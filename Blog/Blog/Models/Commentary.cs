@@ -43,5 +43,10 @@ namespace Blog.Models
         public int ArticleId { get; set; }
 
         public virtual Article Article { get; set; }
+
+        public bool IsAuthorOfComment(string name)
+        {
+            return this.Author.UserName.Equals(name);
+        }
     }
 }

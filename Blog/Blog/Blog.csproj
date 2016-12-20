@@ -294,6 +294,8 @@
     <Content Include="Views\Tag\List.cshtml" />
     <Content Include="Views\Article\Search.cshtml" />
     <Content Include="Views\Article\SearchResults.cshtml" />
+    <Content Include="Views\Commentary\Edit.cshtml" />
+    <Content Include="Views\Commentary\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

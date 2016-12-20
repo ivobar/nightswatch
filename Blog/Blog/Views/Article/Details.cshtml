@@ -9,7 +9,7 @@
             <header>
                 <h2>
                     @Model.Title
-                    <a href="/Commentary/Create/@Model.Id" class="pull-right btn btn-default btn-sm">
+                    <a href="/Commentary/Create/@Model.Id" class="pull-right btn btn-primary btn-sm">
                         Comment
                     </a>
                 </h2>
@@ -24,10 +24,10 @@
             <footer class="pull-right">
                 @if (User.IsInRole("Admin") || Model.IsAuthor(User.Identity.Name))
                 {
-                    @Html.ActionLink("Edit", "Edit", "Article", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
+                    @Html.ActionLink("Edit", "Edit", "Article", new { @id = Model.Id }, new { @class = "btn btn-primary btn-xs" })
                     @Html.ActionLink("Delete", "Delete", "Article", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
                 }
-                @Html.ActionLink("Back", "Index", "Article", null, new { @class = "btn btn-default btn-xs" })
+                @Html.ActionLink("Back", "ListByCategory\\" + Model.CategoryId, "Article", null, new { @class = "btn btn-default btn-xs" })
             </footer>
         </article>
     </div>
@@ -49,10 +49,19 @@
                 <div class="author text-primary">
                     by @comment.AuthorName
                 </div>
-                    <footer class="pull-right">
-                        <a href="#" @*onclick="upvote();"*@ class="btn btn-default btn-xs">&#8593;</a>
-                        <span class="badge">@comment.Points</span>
-                        <a href="#" @*onclick="downVote();"*@ class="btn btn-default btn-xs">&#8595;</a>
+                    <footer>
+                        <div class="pull-left">
+                            @if (User.IsInRole("Admin") || comment.IsAuthorOfComment(User.Identity.Name))
+                            {
+                                @Html.ActionLink(HttpUtility.HtmlDecode("&#9998;"), "Edit", "Commentary", new { @id = comment.Id }, new { @class = "btn btn-primary btn-xs" })
+                                @Html.ActionLink(HttpUtility.HtmlDecode("&#x2716;"), "Delete", "Commentary", new { @id = comment.Id }, new { @class = "btn btn-default btn-xs" })
+                            }
+                        </div>
+                        <div class="pull-right">
+                            <a href="#" @*onclick="upvote();"*@ class="btn btn-default btn-xs">&#8593;</a>
+                            <span class="badge">@comment.Points</span>
+                            <a href="#" @*onclick="downVote();"*@ class="btn btn-default btn-xs">&#8595;</a>
+                        </div>
                     </footer>
             </article>
         </div>

@@ -99,5 +99,100 @@ namespace Blog.Controllers
             return RedirectToAction("Details\\"+1, "Article");
         }
 
+        //
+        // GET: Commentary/Edit
+        [Authorize]
+        public ActionResult Edit(int? id)
+        {
+            if (id==null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            using (var database = new BlogDbContext())
+            {
+                var comment = database.Commentary
+                    .Where(c => c.Id == id)
+                    .First();
+
+                return View(comment);
+            }
+        }
+
+        //
+        // POST: Commentary/Edit
+        [HttpPost]
+        [Authorize]
+        public ActionResult Edit(CommentaryViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var database = new BlogDbContext())
+                {
+                    var comment = database.Commentary
+                        .Where(c => c.Id == model.Id)
+                        .FirstOrDefault();
+
+                    comment.Content = model.Content;
+
+                    database.Entry(comment).State = EntityState.Modified;
+                    database.SaveChanges();
+
+                    return RedirectToAction("Details\\"+ model.ArticleId, "Article");
+                }
+            }
+
+            return View(model);
+        }
+
+        //
+        // GET: Commentary/Delete
+        [Authorize]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            using (var database = new BlogDbContext())
+            {
+                var comment = database.Commentary
+                    .Where(c => c.Id == id)
+                    .First();
+
+                return View(comment);
+            }
+        }
+
+        //
+        // POST: Commentary/Delete
+        [HttpPost]
+        [Authorize]
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirmed (int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            using (var database = new BlogDbContext())
+            {
+                var comment = database.Commentary
+                    .FirstOrDefault(c => c.Id == id);
+
+                if (comment == null)
+                {
+                    return HttpNotFound();
+                }
+
+                database.Commentary.Remove(comment);
+                database.SaveChanges();
+
+                return RedirectToAction("Details\\" + comment.ArticleId, "Article");
+            }
+        }
+
     }
 }
