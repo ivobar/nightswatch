@@ -115,6 +115,12 @@ namespace Blog.Controllers
                     .Where(c => c.Id == id)
                     .First();
 
+                //Validation
+                if (!IsUserAuthorizedToEditComment(comment))
+                {
+                    return View("Forbidden");
+                }
+
                 return View(comment);
             }
         }
@@ -161,6 +167,12 @@ namespace Blog.Controllers
                     .Where(c => c.Id == id)
                     .First();
 
+                //Validation
+                if (!IsUserAuthorizedToEditComment(comment))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                }
+
                 return View(comment);
             }
         }
@@ -192,6 +204,14 @@ namespace Blog.Controllers
 
                 return RedirectToAction("Details\\" + comment.ArticleId, "Article");
             }
+        }
+
+        private bool IsUserAuthorizedToEditComment(Commentary comment)
+        {
+            bool isAdmin = this.User.IsInRole("Admin");
+            bool isAuthor = comment.IsAuthorOfComment(this.User.Identity.Name);
+
+            return isAdmin || isAuthor;
         }
 
     }

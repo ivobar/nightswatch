@@ -296,6 +296,7 @@
     <Content Include="Views\Article\SearchResults.cshtml" />
     <Content Include="Views\Commentary\Edit.cshtml" />
     <Content Include="Views\Commentary\Delete.cshtml" />
+    <Content Include="Views\Shared\Forbidden.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

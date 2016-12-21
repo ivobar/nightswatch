@@ -176,7 +176,7 @@ namespace Blog.Controllers
                 //Validation
                 if (!IsUserAuthorizedToEdit(article))
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                    return View("Forbidden");
                 }
 
                 ViewBag.TagsString = string.Join(", ", article.Tags.Select(t => t.Name));
@@ -247,7 +247,7 @@ namespace Blog.Controllers
                 //Validation
                 if (!IsUserAuthorizedToEdit(article))
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                    return View("Forbidden"); ;
                 }
 
                 //Check if the article exists
